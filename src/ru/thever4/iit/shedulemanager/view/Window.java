@@ -14,12 +14,19 @@ public class Window extends JFrame {
         this.setLocation((int) (d.getWidth() - width)/2, (int) (d.getHeight() - height)/2);
     }
 
+    public Window(String title, int width, int height, boolean isModal) {
+        super(title);
+        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setMinimumSize(new Dimension(width, height));
+        this.setDefaultCloseOperation(isModal ? WindowConstants.DISPOSE_ON_CLOSE : WindowConstants.EXIT_ON_CLOSE);
+        this.setLocation((int) (d.getWidth() - width)/2, (int) (d.getHeight() - height)/2);
+    }
+
     public Window(String title) {
         super(title);
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         this.setMinimumSize(d);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
     }
 
     public void display() {

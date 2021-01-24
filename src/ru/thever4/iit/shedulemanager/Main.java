@@ -1,12 +1,11 @@
 package ru.thever4.iit.shedulemanager;
 
+import ru.thever4.iit.shedulemanager.view.RootWindow;
 import ru.thever4.iit.shedulemanager.model.Lecturer;
 import ru.thever4.iit.shedulemanager.model.Lesson;
 import ru.thever4.iit.shedulemanager.model.Subject;
-import ru.thever4.iit.shedulemanager.view.Window;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class Main {
 
@@ -19,16 +18,11 @@ public class Main {
         Lesson lesson = new Lesson(networks, 1);
 
 
-        Window window = new Window("SheduleManager");
-
-        GridBagLayout layout = new GridBagLayout();
-        GridBagConstraints gbc = new GridBagConstraints();
-        window.setLayout(layout);
-
-
-
-        window.display();
-
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                RootWindow w = new RootWindow();
+            }
+        });
     }
 
     private static void setLookAndFeel() {
