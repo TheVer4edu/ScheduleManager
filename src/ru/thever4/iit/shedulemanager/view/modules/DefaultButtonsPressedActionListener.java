@@ -10,11 +10,19 @@ public abstract class DefaultButtonsPressedActionListener implements ActionListe
     public void actionPerformed(ActionEvent e) {
         DefaultButton source = (DefaultButton) e.getSource();
         switch (source.getType()) {
-            case FLUSH -> onFlushPressed();
-            case CREATE -> onCreatePressed();
-            case EDIT -> onEditPressed();
-            case REMOVE -> onRemovePressed();
-            default -> {}
+            case FLUSH:
+                onFlushPressed();
+                break;
+            case CREATE:
+                onCreatePressed();
+                break;
+            case EDIT:
+                onEditPressed();
+                break;
+            case REMOVE:
+                onRemovePressed();
+                break;
+            default:
         }
     }
 

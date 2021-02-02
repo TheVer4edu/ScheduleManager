@@ -26,8 +26,8 @@ public class HallsRegisterModule extends RegularModule {
 
 
         this.list = new JList();
-        model = new DefaultListModel();
-        list.setModel(model);
+        this.model = new DefaultListModel();
+        list.setModel(this.model);
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         list.setLayoutOrientation(JList.VERTICAL);
         list.setVisibleRowCount(-1);

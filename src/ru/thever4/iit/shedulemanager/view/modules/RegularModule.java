@@ -9,15 +9,17 @@ import java.awt.*;
 
 public abstract class RegularModule extends JPanel {
 
+    private JLabel moduleLabel;
+
     public RegularModule() {
         super();
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         String title = this.getTitle();
         if(title == null) throw new NotYetImplementedException("getTitle() method is not implemented");
-        JLabel label = new JLabel(title);
-        label.setAlignmentX(Component.LEFT_ALIGNMENT);
-        label.setFont(label.getFont().deriveFont(24f));
-        this.add(label);
+        moduleLabel = new JLabel(title);
+        moduleLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        moduleLabel.setFont(moduleLabel.getFont().deriveFont(24f));
+        this.add(moduleLabel);
         JPanel workspace = incarnateWorkspace();
         if(workspace == null) throw new NotYetImplementedException("incarnateWorkspace() method is not implemented");
         workspace.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -55,6 +57,10 @@ public abstract class RegularModule extends JPanel {
         panel.add(removeButton);
 
         return panel;
+    }
+
+    public void setUncommitedChanges(boolean flag) {
+        this.moduleLabel.setText(flag ? this.getTitle() + "*" : this.getTitle());
     }
 
     public abstract String getTitle();

@@ -34,7 +34,7 @@ public abstract class ModalModifierWindow extends Window implements MouseListene
         body.setLayout(new BoxLayout(body, BoxLayout.Y_AXIS));
         this.data = getFields();
         if(data == null) throw new NotYetImplementedException("getFields() not yet implemented");
-        for (var field : data) {
+        for (SupportFieldData field : data) {
             JPanel panel = new JPanel(new FlowLayout(FlowLayout.TRAILING));
             JLabel label = new JLabel(field.getLabel(), JLabel.TRAILING);
             panel.add(label);
@@ -44,7 +44,7 @@ public abstract class ModalModifierWindow extends Window implements MouseListene
             panel.add(textField);
             body.add(panel);
         }
-        var pane = new JScrollPane(body);
+        JScrollPane pane = new JScrollPane(body);
         pane.setBorder(null);
         this.add(pane, BorderLayout.CENTER);
     }
@@ -73,7 +73,7 @@ public abstract class ModalModifierWindow extends Window implements MouseListene
     }
 
     public String getResult(int id) {
-        for(var pair : this.result)
+        for(Pair<Integer, String> pair : this.result)
             if(pair.x == id) return pair.y;
         return null;
     }

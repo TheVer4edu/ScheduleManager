@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="SheduleManager:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/SheduleManager_jar</output-path>
+    <root id="archive" name="SheduleManager.jar">
+      <element id="module-output" name="SheduleManager" />
+    </root>
+  </artifact>
+</component>

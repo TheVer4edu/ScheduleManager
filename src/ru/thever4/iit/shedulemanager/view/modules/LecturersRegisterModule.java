@@ -1,5 +1,6 @@
 package ru.thever4.iit.shedulemanager.view.modules;
 
+import ru.thever4.iit.shedulemanager.controller.LecturersRegisterController;
 import ru.thever4.iit.shedulemanager.model.Lecturer;
 import ru.thever4.iit.shedulemanager.view.ModalModifierWindow;
 
@@ -10,18 +11,33 @@ import java.util.List;
 
 public class LecturersRegisterModule extends RegularModule {
 
+    private LecturersRegisterController controller;
+    private JList list;
+    private DefaultListModel model;
+
     public LecturersRegisterModule() {
         super();
+        this.controller = new LecturersRegisterController(this);
+        controller.inflate(model);
+        list.setSelectedIndex(0);
     }
 
     @Override
     protected JPanel incarnateWorkspace() {
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
-        JPanel defaultButtons = this.incarnateDefaultButtons(new DefaultListener());
-        panel.add(defaultButtons, BorderLayout.PAGE_START);
 
+        this.list = new JList();
+        this.model = new DefaultListModel();
+        list.setModel(this.model);
+        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        list.setLayoutOrientation(JList.VERTICAL);
+        list.setVisibleRowCount(-1);
 
+        JScrollPane scrollPane = new JScrollPane(this.list);
+
+        panel.add(this.incarnateDefaultButtons(new DefaultListener()), BorderLayout.PAGE_START);
+        panel.add(scrollPane, BorderLayout.CENTER);
         return panel;
     }
 
@@ -30,45 +46,31 @@ public class LecturersRegisterModule extends RegularModule {
         return "Реестр преподавателей";
     }
 
+    public DefaultListModel getModel() {
+        return this.model;
+    }
+
     private class DefaultListener extends DefaultButtonsPressedActionListener {
 
         @Override
         protected void onFlushPressed() {
-
+            controller.flushData();
         }
 
         @Override
         protected void onCreatePressed() {
-            ModalModifierWindow modal = new ModalModifierWindow("Добавление элемента", 260, 150) {
-                @Override
-                protected List<SupportFieldData> getFields() {
-                    List<SupportFieldData> result = new ArrayList<>();
-                    result.add(new SupportFieldData(new JTextField(), "Фамилия: ", 0));
-                    result.add(new SupportFieldData(new JTextField(), "Имя: ", 1));
-                    result.add(new SupportFieldData(new JTextField(), "Отчество: ", 2));
-                    return result;
-                }
-
-                @Override
-                protected void saveAction() {
-                    ///TODO add to list
-                    new Lecturer(this.getResult(0),
-                        this.getResult(1),
-                        this.getResult(2));
-                    //inflate
-                }
-            };
-            modal.display();
+            controller.createEntry();
         }
 
         @Override
         protected void onEditPressed() {
-
+            controller.editEntry(list.getSelectedIndex());
         }
 
         @Override
         protected void onRemovePressed() {
-
+            controller.removeEntry(list.getSelectedIndex());
         }
+
     }
 }
